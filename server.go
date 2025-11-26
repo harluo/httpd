@@ -1,4 +1,4 @@
-package echo
+package httpd
 
 import (
 	"github.com/harluo/httpd/internal/core"
