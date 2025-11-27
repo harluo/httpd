@@ -8,7 +8,7 @@ type Server struct {
 	// 接口
 	Interface string `json:"interface,omitempty"`
 	// 端口
-	Port uint16 `default:"9090" json:"port,omitempty" validate:"min=1000,max=65535"`
+	Port uint16 `default:"80" json:"port,omitempty" validate:"min=1,max=65535"`
 	// 超时
 	Timeout *Timeout `json:"timeout,omitempty"`
 }
