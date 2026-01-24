@@ -29,6 +29,11 @@ func newServer(config *config.Server) (server *Server) {
 func (s *Server) Http() *http.Server {
 	return s.http
 }
+
 func (s *Server) Port() uint16 {
 	return s.config.Port
+}
+
+func (s *Server) Addr() string {
+	return s.config.Addr()
 }
