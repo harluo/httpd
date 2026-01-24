@@ -13,6 +13,8 @@ type Server struct {
 
 func newServer(config *config.Server) (server *Server) {
 	server = new(Server)
+	server.config = config
+
 	server.http = new(http.Server)
 	server.http.Addr = config.Addr()
 
