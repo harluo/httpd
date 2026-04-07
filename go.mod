@@ -1,6 +1,6 @@
 module github.com/harluo/httpd
 
-go 1.25
+go 1.25.0
 
 require (
 	github.com/harluo/config v0.0.8
