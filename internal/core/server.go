@@ -3,6 +3,7 @@ package core
 import (
 	"crypto/tls"
 	"net/http"
+	"strings"
 
 	"github.com/harluo/httpd/internal/config"
 )
@@ -64,6 +65,15 @@ func (s *Server) Http() *http.Server {
 
 func (s *Server) Basepath() string {
 	return s.config.Basepath
+}
+
+func (s *Server) Path(required string, optionals ...string) string {
+	paths := make([]string, 0, len(optionals)+2)
+	paths = append(paths, s.Basepath())
+	paths = append(paths, required)
+	paths = append(paths, optionals...)
+
+	return strings.Join(paths, "/")
 }
 
 func (s *Server) Port() uint16 {
