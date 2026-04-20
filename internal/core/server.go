@@ -62,6 +62,10 @@ func (s *Server) Http() *http.Server {
 	return s.http
 }
 
+func (s *Server) Basepath() string {
+	return s.config.Basepath
+}
+
 func (s *Server) Port() uint16 {
 	return s.config.Port
 }

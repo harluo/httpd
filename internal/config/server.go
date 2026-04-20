@@ -11,6 +11,8 @@ type Server struct {
 	Port uint16 `default:"80" json:"port,omitempty" validate:"min=1,max=65535"`
 	// 超时
 	Timeout *Timeout `json:"timeout,omitempty"`
+	// 基础路径
+	Basepath string `json:"basepath,omitempty"`
 }
 
 func newServer(http *Http) *Server {
