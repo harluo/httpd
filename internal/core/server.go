@@ -3,7 +3,7 @@ package core
 import (
 	"crypto/tls"
 	"net/http"
-	"strings"
+	"path/filepath"
 
 	"github.com/harluo/httpd/internal/config"
 )
@@ -45,6 +45,7 @@ func newServer(config *config.Server) (server *Server) {
 		// 会话票证，提高性能
 		SessionTicketsDisabled: false,
 	}
+	server.http.TLSConfig = nil
 
 	if config.Timeout != nil && config.Timeout.Read != 0 {
 		server.http.WriteTimeout = config.Timeout.Read
@@ -73,7 +74,7 @@ func (s *Server) Path(required string, optionals ...string) string {
 	paths = append(paths, required)
 	paths = append(paths, optionals...)
 
-	return strings.Join(paths, "/")
+	return filepath.ToSlash(filepath.Join(paths...))
 }
 
 func (s *Server) Port() uint16 {
