@@ -12,7 +12,7 @@ type Server struct {
 	// 超时
 	Timeout *Timeout `json:"timeout,omitempty"`
 	// 基础路径
-	Basepath string `json:"basepath,omitempty" validate:"startswith=/"`
+	Basepath string `json:"basepath,omitempty" validate:"isdefault|startswith=/"`
 }
 
 func newServer(http *Http) *Server {
