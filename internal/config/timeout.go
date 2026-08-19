@@ -5,6 +5,8 @@ import (
 )
 
 type Timeout struct {
+	// 标头
+	Header time.Duration `json:"header,omitempty"`
 	// 读数据
 	Read time.Duration `json:"read,omitempty"`
 	// 写数据

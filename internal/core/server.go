@@ -47,13 +47,10 @@ func newServer(config *config.Server) (server *Server) {
 	}
 	server.http.TLSConfig = nil
 
-	if config.Timeout != nil && config.Timeout.Read != 0 {
-		server.http.WriteTimeout = config.Timeout.Read
-	}
-	if config.Timeout != nil && config.Timeout.Write != 0 {
+	if config.Timeout != nil && config.Timeout.Header != 0 {
+		server.http.ReadHeaderTimeout = config.Timeout.Header
+		server.http.ReadTimeout = config.Timeout.Read
 		server.http.WriteTimeout = config.Timeout.Write
-	}
-	if config.Timeout != nil && config.Timeout.Idle != 0 {
 		server.http.IdleTimeout = config.Timeout.Idle
 	}
 
