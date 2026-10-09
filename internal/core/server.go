@@ -6,11 +6,13 @@ import (
 	"path/filepath"
 
 	"github.com/harluo/httpd/internal/config"
+	"github.com/harluo/httpd/internal/core/internal"
 )
 
 type Server struct {
-	http   *http.Server
-	config *config.Server
+	http    *http.Server
+	config  *config.Server
+	handles []*internal.Handle
 }
 
 func newServer(config *config.Server) (server *Server) {
@@ -80,4 +82,58 @@ func (s *Server) Port() uint16 {
 
 func (s *Server) Addr() string {
 	return s.config.Addr()
+}
+
+func (s *Server) Handles() []*internal.Handle {
+	return s.handles
+}
+
+func (s *Server) Get(path string, handler http.Handler) (server *Server) {
+	s.handles = append(s.handles, &internal.Handle{
+		Path:    path,
+		Method:  http.MethodGet,
+		Handler: handler,
+	})
+
+	return
+}
+
+func (s *Server) Put(path string, handler http.Handler) (server *Server) {
+	s.handles = append(s.handles, &internal.Handle{
+		Path:    path,
+		Method:  http.MethodPut,
+		Handler: handler,
+	})
+
+	return
+}
+
+func (s *Server) Post(path string, handler http.Handler) (server *Server) {
+	s.handles = append(s.handles, &internal.Handle{
+		Path:    path,
+		Method:  http.MethodPost,
+		Handler: handler,
+	})
+
+	return
+}
+
+func (s *Server) Delete(path string, handler http.Handler) (server *Server) {
+	s.handles = append(s.handles, &internal.Handle{
+		Path:    path,
+		Method:  http.MethodDelete,
+		Handler: handler,
+	})
+
+	return
+}
+
+func (s *Server) Patch(path string, handler http.Handler) (server *Server) {
+	s.handles = append(s.handles, &internal.Handle{
+		Path:    path,
+		Method:  http.MethodPatch,
+		Handler: handler,
+	})
+
+	return
 }
