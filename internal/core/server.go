@@ -47,7 +47,6 @@ func newServer(config *config.Server) (server *Server) {
 		// 会话票证，提高性能
 		SessionTicketsDisabled: false,
 	}
-	server.http.TLSConfig = nil
 
 	if config.Timeout != nil && config.Timeout.Header != 0 {
 		server.http.ReadHeaderTimeout = config.Timeout.Header
@@ -55,6 +54,17 @@ func newServer(config *config.Server) (server *Server) {
 		server.http.WriteTimeout = config.Timeout.Write
 		server.http.IdleTimeout = config.Timeout.Idle
 	}
+
+	health := internal.NewHealth()
+	server.handles = append(server.handles, &internal.Handle{ // 默认健康检查
+		Path:    "/health",
+		Method:  "GET",
+		Handler: health,
+	}, &internal.Handle{ // 默认准备完成探针
+		Path:    "/readiness",
+		Method:  "GET",
+		Handler: health,
+	})
 
 	return
 }
