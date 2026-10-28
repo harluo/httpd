@@ -61,7 +61,7 @@ func newServer(config *config.Server) (server *Server) {
 		Method:  "GET",
 		Handler: health,
 	}, &internal.Handle{ // 默认准备完成探针
-		Path:    "/readiness",
+		Path:    "/ready",
 		Method:  "GET",
 		Handler: health,
 	})
